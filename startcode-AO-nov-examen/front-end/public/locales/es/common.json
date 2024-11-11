@@ -1,0 +1,43 @@
+{
+  "app.title": "Aplicación de Examen",
+  "general.error": "Ha ocurrido un error. Por favor, inténtelo de nuevo más tarde.",
+  "header": {
+    "welcome": "Bienvenido",
+    "nav": {
+      "home": "Inicio",
+      "classrooms": "Aulas",
+      "teachers": "Profesores",
+      "add-teacher": "Agregar Profesor",
+      "login": "Iniciar Sesión",
+      "logout": "Cerrar Sesión",
+      "classroom": "Agregar aula",
+      "language": "Idioma"
+    }
+  },
+  "login": {
+    "title": "Iniciar Sesión",
+    "button": "Iniciar Sesión",
+    "success": "Inicio de sesión exitoso. Redirigiendo a la página principal...",
+    "fault": "No está autorizado para ver esta página.",
+    "validate": {
+      "name": "El nombre es obligatorio",
+      "password": "La contraseña es obligatoria"
+    },
+    "label": { "username": "Nombre de usuario:", "password": "Contraseña:" }
+  },
+  "home": {
+    "title": "¡Buena suerte con el examen!",
+    "description": ""
+  },
+  "form": {
+    "add": "Agregar",
+    "classroom": "Agregar aula",
+    "name": "Nombre",
+    "succes": "Aula agregada con el nombre",
+    "and": "y ID",
+    "validate" : {
+      "name": "El nombre es obligatorio",
+      "exist": "El aula ya existe"
+    }
+  }
+}
