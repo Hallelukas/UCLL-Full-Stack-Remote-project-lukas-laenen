@@ -1,43 +1,28 @@
 {
-  "app.title": "Aplicación de Examen",
-  "general.error": "Ha ocurrido un error. Por favor, inténtelo de nuevo más tarde.",
+  "app.title": "Examen App",
+  "general.error": "Se ha producido un error. Vuelva a intentarlo más tarde.",
   "header": {
     "welcome": "Bienvenido",
     "nav": {
       "home": "Inicio",
-      "classrooms": "Aulas",
-      "teachers": "Profesores",
-      "add-teacher": "Agregar Profesor",
-      "login": "Iniciar Sesión",
-      "logout": "Cerrar Sesión",
-      "classroom": "Agregar aula",
-      "language": "Idioma"
+      "teams": "Grupos",
+      "coaches": "Entrenadores",
+      "login": "Conéctese",
+      "logout": "Cerrar sesión"
     }
   },
   "login": {
-    "title": "Iniciar Sesión",
-    "button": "Iniciar Sesión",
-    "success": "Inicio de sesión exitoso. Redirigiendo a la página principal...",
-    "fault": "No está autorizado para ver esta página.",
+    "title": "Inicio de sesión",
+    "button": "Conéctese",
+    "success": "Inicio de sesión exitoso. Redirigiendo a la página de inicio...",
     "validate": {
-      "name": "El nombre es obligatorio",
-      "password": "La contraseña es obligatoria"
+      "name": "Nombre obligatorio",
+      "password": "Se requiere contraseña"
     },
     "label": { "username": "Nombre de usuario:", "password": "Contraseña:" }
   },
   "home": {
-    "title": "¡Buena suerte con el examen!",
-    "description": ""
-  },
-  "form": {
-    "add": "Agregar",
-    "classroom": "Agregar aula",
-    "name": "Nombre",
-    "succes": "Aula agregada con el nombre",
-    "and": "y ID",
-    "validate" : {
-      "name": "El nombre es obligatorio",
-      "exist": "El aula ya existe"
-    }
+    "title": "Bienvenido!",
+    "description": "Cursos le permite ver como profesor todos los cursos que está impartiendo y como alumno todos los cursos en los que está matriculado. También puede ver cuándo están programados los cursos y los alumnos matriculados en cada curso."
   }
 }

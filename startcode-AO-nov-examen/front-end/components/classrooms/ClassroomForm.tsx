@@ -49,19 +49,12 @@ const ClassroomForm = () => {
 
     return ( 
         <form onSubmit={handleSubmit}>
-            <div>
-                {error && (
-                    <p className="text-red-800" role="alert">
-                    {error}
-                  </p>
-                )}
+            <div className="mb-3">
                 {status && (
                     <p className="text-green-800" role="alert">
                         {status}
                     </p>
                 )}
-            </div>
-            <div className="mb-3">
                 <label className="block mb-2 text-sm font-medium"><strong>{t('form.name')}:</strong></label>
                 <div className="">
                     <input
@@ -70,6 +63,11 @@ const ClassroomForm = () => {
                         onChange={(e) => setName(e.target.value)}
                         className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue:500 block w-full p-2.5"
                     />
+                    {error && (
+                        <p className="text-red-800" role="alert">
+                            {error}
+                        </p>
+                    )}
                 </div>
             </div>
             <button

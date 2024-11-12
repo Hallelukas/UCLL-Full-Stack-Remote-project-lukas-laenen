@@ -1,7 +1,6 @@
 import { User } from '@types';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
-import Language from "./language";
 import { useEffect, useState } from 'react';
 
 const Header: React.FC = () => {
@@ -50,6 +49,7 @@ const Header: React.FC = () => {
             {t('header.nav.login')}
           </Link>
         )}
+
         {loggedInUser && (
           <a
             href="/login"
@@ -58,13 +58,13 @@ const Header: React.FC = () => {
             {t('header.nav.logout')}
           </a>
         )}
+
         {loggedInUser && (
           <div className="text-white ms-5 mt-2 md:mt-0 pt-1 md:pt-0 grow">
             {t('header.welcome')}, {loggedInUser.fullname}!
           </div>
         )}
 
-        <Language />
       </nav>
     </header>
   );
