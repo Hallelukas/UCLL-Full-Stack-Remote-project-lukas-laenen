@@ -104,7 +104,7 @@ classroomRouter.get('/:name', async (req: Request, res: Response, next: NextFunc
  */
  classroomRouter.post("/add", async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const classroomInput: ClassroomInput = req.body;
+        const classroomInput = <ClassroomInput>req.body;
         const classroom = await classroomService.addClassroom(classroomInput);
         res.status(200).json(classroom);
     } catch ( error ) {
