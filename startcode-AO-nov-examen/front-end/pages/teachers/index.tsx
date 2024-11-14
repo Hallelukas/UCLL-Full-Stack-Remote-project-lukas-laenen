@@ -3,18 +3,25 @@ import TeacherOverview from '@components/teachers/TeacherOverview';
 import TeacherService from '@services/TeacherService';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import { useTranslation } from 'react-i18next';
+import useInterval from 'use-interval';
 
 const Teachers: React.FC = () => {
   const {t} = useTranslation();
 
-  const fetcher = async (key: string) => {
+  const fetcher = async () => {
     const response = await TeacherService.getAllTeachers();
-    return response.json();
+    if (response.ok) {
+      return response.json();
+    }
   };
 
   const { data, isLoading, error } = useSWR('Teachers', fetcher);
+
+  useInterval(() => {
+    mutate("Teachers", fetcher());
+  }, 5000);
 
   return (
     <>
