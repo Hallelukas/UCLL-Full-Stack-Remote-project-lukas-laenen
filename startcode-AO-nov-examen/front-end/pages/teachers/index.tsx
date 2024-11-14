@@ -19,7 +19,7 @@ const Teachers: React.FC = () => {
   return (
     <>
       <Head>
-        <title>Teachers</title>
+        <title>{t("header.nav.teachers")}</title>
       </Head>
       <Header />
       <main className="p-6 min-h-screen flex flex-col items-center">
@@ -27,7 +27,7 @@ const Teachers: React.FC = () => {
 
         <section className="mt-5">
           {error && <p className="text-danger">{error}</p>}
-          {isLoading && <p>Loading...</p>}
+          {isLoading && <p>{t('loading')}</p>}
           {data && (
             <TeacherOverview teachers = {data}/>
           )}

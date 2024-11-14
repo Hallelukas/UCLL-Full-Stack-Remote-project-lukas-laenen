@@ -24,7 +24,6 @@ const ClassroomForm = () => {
                 result = false;
             }
         }
-        
         return result;
     }
 

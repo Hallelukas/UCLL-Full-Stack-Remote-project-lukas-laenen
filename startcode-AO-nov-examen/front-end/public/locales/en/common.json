@@ -1,6 +1,7 @@
 {
   "app.title": "Exam App",
   "general.error": "An error has occurred. Please try again later.",
+  "loading": "Loading...",
   "header": {
     "welcome": "Welcome",
     "nav": {
