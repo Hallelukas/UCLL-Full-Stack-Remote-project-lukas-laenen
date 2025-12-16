@@ -25,6 +25,14 @@ model User {
   password  String
   role      String
   teachers  Teacher[]
+  isVerified        Boolean   @default(false)
+  verificationToken String?
+  mfaCode           String?
+  mfaExpires        DateTime?
+  resetToken        String?
+  resetTokenExpires DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt  @default(now())
 }
 
 model Classroom {

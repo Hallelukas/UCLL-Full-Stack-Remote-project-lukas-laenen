@@ -1,3 +1,4 @@
+import UserService from '@services/UserService';
 import { User } from '@types';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
@@ -12,7 +13,8 @@ const Header: React.FC = () => {
     setLoggedInUser(JSON.parse(sessionStorage.getItem('loggedInUser')));
   }, []);
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    await UserService.logoutUser();
     sessionStorage.removeItem('loggedInUser');
     setLoggedInUser(null);
   };
@@ -59,9 +61,17 @@ const Header: React.FC = () => {
           </a>
         )}
 
+        {!loggedInUser && (
+          <Link
+            href="/register"
+            className="px-4  text-white text-xl hover:bg-gray-600 rounded-lg">
+            {t('header.nav.register')}
+          </Link>
+        )}
+
         {loggedInUser && (
-          <div className="text-white ms-5 mt-2 md:mt-0 pt-1 md:pt-0 grow">
-            {t('header.welcome')}, {loggedInUser.fullname}!
+          <div className="px-4  text-gray-400 text-xl rounded-lg">
+            {t('header.welcome')}, {loggedInUser.username}!
           </div>
         )}
 

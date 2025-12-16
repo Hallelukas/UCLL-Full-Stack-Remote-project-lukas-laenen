@@ -12,9 +12,11 @@ const Teachers: React.FC = () => {
 
   const fetcher = async () => {
     const response = await TeacherService.getAllTeachers();
-    if (response.ok) {
-      return response.json();
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || 'Failed to fetch teachers');
     }
+    return data;
   };
 
   const { data, isLoading, error } = useSWR('Teachers', fetcher);
@@ -26,15 +28,15 @@ const Teachers: React.FC = () => {
   return (
     <>
       <Head>
-        <title>{t("header.nav.teachers")}</title>
+        <title>{t('header.nav.teachers', 'Teachers')}</title>
       </Head>
       <Header />
       <main className="p-6 min-h-screen flex flex-col items-center">
-        <h1>{t('header.nav.teachers')}</h1>
+        <h1>{t('header.nav.teachers', 'Teachers')}</h1>
 
         <section className="mt-5">
-          {error && <p className="text-danger">{error}</p>}
-          {isLoading && <p>{t('loading')}</p>}
+          {error && <p className="text-danger">{error.message}</p>}
+          {isLoading && <p>{t('loading', 'Loading...')}</p>}
           {data && (
             <TeacherOverview teachers = {data}/>
           )}

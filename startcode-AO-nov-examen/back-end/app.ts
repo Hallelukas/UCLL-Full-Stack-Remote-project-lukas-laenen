@@ -9,26 +9,82 @@ import { userRouter } from './controller/user.routes';
 import helmet from 'helmet';
 import { teacherRouter } from './controller/teacher.routes';
 import { classroomRouter } from './controller/classroom.routes';
-
-const app = express();
-app.use(helmet());
+import path from "path";
+import fs from 'fs';
+import http from 'http';
+import https from 'https';
+import { logger } from './util/logger';
+import { authLimiter, createAccountLimiter } from './util/rate_limiter';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
-const port = process.env.APP_PORT || 3000;
+const app = express();
+app.use(cookieParser());
 
-app.use(cors({ origin: 'http://localhost:8080' }));
+const httpsOptions = {
+    key: fs.readFileSync(path.join(__dirname, "../certs/key.pem")),
+    cert: fs.readFileSync(path.join(__dirname, "../certs/cert.pem")),
+    minVersion: "TLSv1.2" as const,
+    honorCipherOrder: true
+};
+
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            useDefaults: true,
+            directives: {
+                "default-src": ["'self'"],
+                "script-src": ["'self'", "https://localhost:4000"],
+                "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+                "font-src": ["'self'", "https://fonts.gstatic.com"],
+                "img-src": ["'self'","https://localhost:4000"],
+                "connect-src": ["'self'", "https://localhost:4000"],
+                "frame-ancestors": ["'self'"]
+            },
+        }
+    })
+)
+
+app.use(
+  helmet.hsts({
+    maxAge: 63072000,
+    includeSubDomains: true,
+    preload: false,
+  })
+);
+
+const port = process.env.APP_PORT || 3000;
+const httpport = process.env.APP_PORT || 3001;
+
+app.use(cors({
+  origin: 'https://localhost:4000',
+  credentials: true
+}));
+
 app.use(bodyParser.json());
+
+app.use(['/users/register'], createAccountLimiter);
+app.use(['/users/login'], authLimiter );
+
+if (!process.env.JWT_SECRET) {
+  console.error("JWT_SECRET missing. Exiting.");
+  process.exit(1);
+}
 
 app.use(
     expressjwt({
-        secret: process.env.JWT_SECRET || 'default_secret',
+        secret: process.env.JWT_SECRET,
         algorithms: ['HS256'],
     }).unless({
         path: [
             '/api-docs',
             /^\/api-docs\/.*/,
             '/users/login',
-            '/users/signup',
+            '/users/login-verify',
+            '/users/register',
+            '/users/reset-request',
+            '/users/reset-confirm',
+            '/users/verify',
             '/status',
             '/teachers',
             /^\/teachers\/.*/,
@@ -59,6 +115,9 @@ const swaggerSpec = swaggerJSDoc(swaggerOpts);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+
+    logger.error(`Error: ${err.message} | URL: ${req.url}`);
+
     if (err.name === 'UnauthorizedError') {
         res.status(401).json({ status: 'unauthorized', message: err.message });
     } else if (err.name === 'ClassesError') {
@@ -68,6 +127,14 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     }
 });
 
-app.listen(port || 3000, () => {
-    console.log(`Exam API is running on port ${port}.`);
+https.createServer(httpsOptions, app).listen(port, () => {
+    console.log(`Exam API (https) is running on port ${port}.`);
+});
+
+http.createServer((req, res) => {
+    const host = req.headers['host'] || `localhost:${httpport}}`;
+    res.writeHead(301, { "Location": `https://${host}${req.url}` });
+    res.end();
+}).listen(httpport, () => {
+    console.log(`Exam API (http) redirector running on port ${httpport}.`);
 });

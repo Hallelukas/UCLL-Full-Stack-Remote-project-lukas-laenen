@@ -12,6 +12,7 @@
       "login": "Login",
       "logout": "Logout",
       "classroom": "Add classroom",
+      "register": "Register",
       "language": "Language"
     }
   },
@@ -20,6 +21,8 @@
     "button": "Login",
     "success": "Login succesful. Redirecting to homepage...",
     "fault": "You are not authorized to view this page.",
+    "rememberMe": "Remember me",
+    "mfaRequired": "Check your email and confirm the received code below",
     "validate": {
       "name": "Name is required",
       "password": "Password is required"
@@ -40,5 +43,11 @@
       "name": "Name is required",
       "exist": "Classroom already exists"
     }
+  },
+  "register":{
+    "firstname": "First name",
+    "lastname": "Last name",
+    "email": "Email",
+    "password": "Password"
   }
 }

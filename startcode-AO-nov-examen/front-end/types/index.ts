@@ -5,13 +5,18 @@ export type Teacher = {
 };
 
 export type User = {
-  firstName?: string;
-  lastName?: string;
+  username: string;
+  password: string;
+  firstName: string;
   fullname?: string;
-  email?: string;
-  username?: string;
-  password?: string;
-  role?: string;
+  lastName: string;
+  email: string;
+  role: 'student' | 'teacher' | 'admin';
+}
+
+export type LoginUser = {
+  username: string;
+  password: string;
 };
 
 export type Classroom = {
@@ -21,5 +26,5 @@ export type Classroom = {
 
 export type StatusMessage = {
   message: string;
-  type: 'error' | 'success';
+  type: 'error' | 'success' | 'info';
 };

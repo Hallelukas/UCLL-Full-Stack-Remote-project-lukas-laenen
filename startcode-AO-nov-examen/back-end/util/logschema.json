@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ApplicationLogEntry",
+  "type": "object",
+  "required": ["timestamp", "level", "event", "message"],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "level": {
+      "type": "string",
+      "enum": ["info", "warn", "error"]
+    },
+    "event": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "user": {
+      "type": "string",
+      "nullable": true
+    },
+    "ip": {
+      "type": "string",
+      "nullable": true
+    },
+    "url": {
+      "type": "string",
+      "nullable": true
+    },
+    "status": {
+      "type": "string",
+      "nullable": true
+    },
+    "error": {
+      "type": "string",
+      "nullable": true
+    }
+  }
+}

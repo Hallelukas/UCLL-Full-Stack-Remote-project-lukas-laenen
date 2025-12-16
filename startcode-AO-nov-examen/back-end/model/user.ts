@@ -9,6 +9,12 @@ export class User {
     readonly email: string;
     readonly password: string;
     readonly role?: Role;
+    readonly isVerified?: boolean;
+    readonly verificationToken?: string;
+    readonly mfaCode?: string;
+    readonly mfaExpires?: Date;
+    readonly resetToken?: string;
+    readonly resetTokenExpires?: Date 
 
     constructor(user: {
         id?: number;
@@ -18,6 +24,12 @@ export class User {
         email: string;
         password: string;
         role: Role;
+        isVerified?: boolean;
+        verificationToken?: string;
+        mfaCode?: string;
+        mfaExpires?: Date;
+        resetToken?: string;
+        resetTokenExpires?: Date 
     }) {
         this.validate(user);
 
@@ -28,6 +40,12 @@ export class User {
         this.email = user.email;
         this.password = user.password;
         this.role = user.role;
+        this.isVerified = user.isVerified;
+        this.verificationToken = user.verificationToken;
+        this.mfaCode = user.mfaCode;
+        this.mfaExpires = user.mfaExpires;
+        this.resetToken = user.resetToken;
+        this.resetTokenExpires = user.resetTokenExpires;
     }
 
     validate(user: {
@@ -74,7 +92,7 @@ export class User {
         );
     }
 
-    static from({ id, username, firstName, lastName, email, password, role }: UserPrisma) {
+    static from({ id, username, firstName, lastName, email, password, role, isVerified, verificationToken, mfaCode, mfaExpires, resetToken, resetTokenExpires }: UserPrisma & { isVerified?: boolean; verificationToken?: string; mfaCode?: string; mfaExpires?: Date }) {
         return new User({
             id,
             username,
@@ -83,6 +101,12 @@ export class User {
             email,
             password,
             role: role as Role,
+            isVerified,
+            verificationToken,
+            mfaCode,
+            mfaExpires,
+            resetToken,
+            resetTokenExpires
         });
     }
 }

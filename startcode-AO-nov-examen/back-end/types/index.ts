@@ -25,9 +25,27 @@ type AuthenticationResponse = {
     role: string;
 };
 
+export interface LoginRequestResponse {
+    requiresMfa: boolean;
+    message: string;
+    token?: string;
+}
+
 type ClassroomInput = {
     id?: number;
     name: string;
 }
 
-export { Role, TeacherInput, UserInput, AuthenticationResponse, ClassroomInput };
+interface AuthenticatedRequest extends Request {
+  user?: {
+    username: string;
+    role: string;
+    [key: string]: any;
+  };
+  cookies?: {
+    auth_token?: string;
+    [key: string]: any;
+  };
+}
+
+export { Role, TeacherInput, UserInput, AuthenticationResponse, ClassroomInput, AuthenticatedRequest };
