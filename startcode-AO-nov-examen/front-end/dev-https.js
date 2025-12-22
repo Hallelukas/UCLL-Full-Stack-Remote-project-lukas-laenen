@@ -19,7 +19,7 @@ app.prepare().then(() => {
   createServer(httpsOptions, (req, res) => {
     res.setHeader(
       "Content-Security-Policy",
-      "default-src 'self'; script-src 'self' https://localhost:3000; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://localhost:3000; connect-src 'self' https://localhost:3000; frame-ancestors 'self'; form-action 'self';"
+      "default-src 'self'; script-src 'self' https://localhost:3000; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://localhost:3000; connect-src 'self' https://localhost:3000; frame-ancestors 'self'; form-action 'self';"
     );
     res.setHeader("X-Frame-Options", "SAMEORIGIN");
     res.setHeader("X-Content-Type-Options", "nosniff");

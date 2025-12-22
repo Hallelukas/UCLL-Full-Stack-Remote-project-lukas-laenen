@@ -37,10 +37,10 @@ app.use(
             directives: {
                 "default-src": ["'self'"],
                 "script-src": ["'self'", "https://localhost:4000"],
-                "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+                "style-src": ["'self'", "https://fonts.googleapis.com"],
                 "font-src": ["'self'", "https://fonts.gstatic.com"],
                 "img-src": ["'self'","https://localhost:4000"],
-                "connect-src": ["'self'", "https://localhost:3000", "https://localhost:3000"],
+                "connect-src": ["'self'", "https://localhost:4000", "https://localhost:3000"],
                 "frame-ancestors": ["'self'"],
                 "form-action": ["'self'"]
             },
