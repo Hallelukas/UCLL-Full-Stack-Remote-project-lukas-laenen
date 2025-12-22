@@ -47,7 +47,7 @@ const ResetSubmitForm: React.FC<ResetSubmitFormProps> = ({ token }) =>{
     const response = await UserService.confirmReset({token, newp: password});
     const data = await response.json();
 
-    if ( response.status !== 200 ) {
+    if ( response.status !== 201 ) {
         setErrors((errors) => [...errors, data.message]);    
     } else {
         setStatusMessages([{message: "Check your email for further instructions.", type: "success"}]);

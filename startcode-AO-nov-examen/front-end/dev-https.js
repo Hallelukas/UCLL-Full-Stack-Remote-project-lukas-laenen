@@ -17,8 +17,12 @@ app.prepare().then(() => {
   console.log("Starting https server on port 4000...");
 
   createServer(httpsOptions, (req, res) => {
-    res.setHeader("Content-Security-Policy", "frame-ancestors 'self';");
+    res.setHeader(
+      "Content-Security-Policy",
+      "default-src 'self'; script-src 'self' https://localhost:3000; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://localhost:3000; connect-src 'self' https://localhost:3000; frame-ancestors 'self'; form-action 'self';"
+    );
     res.setHeader("X-Frame-Options", "SAMEORIGIN");
+    res.setHeader("X-Content-Type-Options", "nosniff");
     handle(req, res, parse(req.url, true));
   }).listen(4000, () => {
     console.log(`Next.js (https) is running at https://localhost:4000`);

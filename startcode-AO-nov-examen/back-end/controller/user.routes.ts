@@ -279,7 +279,7 @@ userRouter.post('/reset-request', async (req, res, next) => {
   try {
     const { email } = req.body;
     await userService.PasswordResetRequest(email);
-    const user = await userDb.getUserByEmail(email);
+    const user = await userDb.getUserByEmail({email});
     logEvent("REQUEST_RESET", {
               message: `Request reset password for user ${user.username}`,
               user: user.username,
@@ -295,9 +295,10 @@ userRouter.post('/reset-request', async (req, res, next) => {
 
 userRouter.post('/reset-confirm', async (req, res, next) => {
   try {
-    const { token, password } = req.body;
-
+    const { token, newp: password } = req.body;
+    
     const { valid, details } = validatePassword(password);
+
     if (!valid) {
         return res.status(400).json({ status: 'error', message: 'Password does not meet requirements', details });
     }

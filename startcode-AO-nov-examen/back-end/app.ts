@@ -28,6 +28,8 @@ const httpsOptions = {
     honorCipherOrder: true
 };
 
+app.disable('x-powered-by');
+
 app.use(
     helmet({
         contentSecurityPolicy: {
@@ -38,8 +40,9 @@ app.use(
                 "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
                 "font-src": ["'self'", "https://fonts.gstatic.com"],
                 "img-src": ["'self'","https://localhost:4000"],
-                "connect-src": ["'self'", "https://localhost:4000"],
-                "frame-ancestors": ["'self'"]
+                "connect-src": ["'self'", "https://localhost:3000", "https://localhost:3000"],
+                "frame-ancestors": ["'self'"],
+                "form-action": ["'self'"]
             },
         }
     })
@@ -119,11 +122,11 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     logger.error(`Error: ${err.message} | URL: ${req.url}`);
 
     if (err.name === 'UnauthorizedError') {
-        res.status(401).json({ status: 'unauthorized', message: err.message });
+        res.status(401).json({ status: 'unauthorized', message: "Unauthorized error"});
     } else if (err.name === 'ClassesError') {
         res.status(400).json({ status: 'domain error', message: err.message });
     } else {
-        res.status(400).json({ status: 'application error', message: err.message });
+        res.status(400).json({ status: 'application error', message: "There was an error" });
     }
 });
 
